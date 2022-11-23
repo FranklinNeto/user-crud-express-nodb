@@ -1,16 +1,19 @@
 import express from "express";
+import userRouter from "./routes/user.routes";
+import users from "./database";
 
 const app = express();
 
 app.use(express.json());
+app.use("/users", userRouter);
 
 app.get("/", (req, res) => {
   return res.json({
-    message: "Hello World Kenzie",
+    users,
   });
 });
 
-app.listen(3001, () => {
+app.listen(3000, () => {
   console.log("deu certo, mané");
 });
 
