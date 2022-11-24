@@ -1,17 +1,11 @@
 import createUserService from "../services/createUser.service";
 
-const createUserController = (req, res) => {
-  try {
-    const { email, name } = req.body;
+const createUserController = async (req, res) => {
+  const { email, name, password } = req.body;
 
-    const newUser = createUserService(email, name);
+  const [status, data] = await createUserService(email, name, password);
 
-    return res.status(201).json(newUser);
-  } catch (error) {
-    return res.status(400).json({
-      message: error.message,
-    });
-  }
+  return res.status(status).json(data);
 };
 
 export default createUserController;
