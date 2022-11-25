@@ -1,9 +1,9 @@
 import retrieveUserService from "../services/retrieveUser.service";
 
 const retrieveUserController = (req, res) => {
-  const [status, foundUser] = retrieveUserService(req);
+  const [status, data] = retrieveUserService(req.user.userIndex);
 
-  return res.status(status).json(foundUser);
+  return res.status(status).json(data);
 };
 
 export default retrieveUserController;

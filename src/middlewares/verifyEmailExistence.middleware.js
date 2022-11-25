@@ -6,7 +6,7 @@ const verifyEmailExistenceMiddleware = (req, res, next) => {
   const userAlreadyExists = users.find((user) => user.email === email);
 
   if (userAlreadyExists) {
-    return res.status(400).json({ message: "E-mail already registered" });
+    return res.status(409).json({ message: "E-mail already registered" });
   }
 
   next();
