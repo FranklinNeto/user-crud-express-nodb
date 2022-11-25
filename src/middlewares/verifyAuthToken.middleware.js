@@ -11,7 +11,7 @@ const verifyAuthTokenMiddleware = (req, res, next) => {
 
   const token = authToken.split(" ")[1]; //retira a string bearer do authToken
 
-  return jwt.verify(token, "SECRET_KEY", (error, decoded) => {
+  return jwt.verify(token, process.env.SECRET_KEY, (error, decoded) => {
     if (error) {
       return res.status(404).json({
         message: error.message,
