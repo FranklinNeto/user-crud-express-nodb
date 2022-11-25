@@ -7,9 +7,10 @@ import verifyIfUserIsAdm from "../middlewares/verifyIfUserIsAdm.middleware";
 
 import listUsersController from "../controllers/listUsers.controller";
 import retrieveProfileController from "../controllers/retrieveProfile.controller";
+import updateUserController from "../controllers/updateUser.controller";
 
 import deleteUserController from "../controllers/deleteUser.controller";
-
+import verifyIsOwnerMiddleware from "../middlewares/verifyIsOwner.middleware";
 const userRouter = Router();
 
 userRouter.post("", verifyEmailExistenceMiddleware, createUserController);
@@ -25,7 +26,21 @@ userRouter.get(
   retrieveProfileController
 );
 
-/* userRouter.delete("/:id", verifyUserExistenceMiddleware, deleteUserController); */
+userRouter.delete(
+  "/:id",
+  verifyAuthTokenMiddleware,
+  verifyUserExistenceMiddleware,
+  verifyIsOwnerMiddleware,
+  deleteUserController
+);
+
+userRouter.patch(
+  "/:id",
+  verifyAuthTokenMiddleware,
+  verifyUserExistenceMiddleware,
+  verifyIsOwnerMiddleware,
+  updateUserController
+);
 
 /* userRouter.get(":id", retrieveUserController); */
 
